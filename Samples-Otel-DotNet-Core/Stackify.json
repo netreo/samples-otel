@@ -1,0 +1,21 @@
+{
+  "AppName": "Retrace Samples.Otel.NETCORE",
+  "DisableTracing": false,
+  "EnableDebug": true,
+  "Instrumentation": [
+    {
+      "Assembly": "Samples-Otel-DotNet-Core",
+      "Class": "Samples.Services.BlogPosterServices.*",
+      "Method": "DoWorkAsync",
+      "StartTrace": true,
+      "OperationName": "{{ClassName}} Post Blog"
+    },
+    {
+      "Assembly": "Samples-Otel-DotNet-Core",
+      "Class": "Samples.Services.BlogConsumerServices.*",
+      "Method": "Handler",
+      "StartTrace": true,
+      "OperationName": "{{ClassName}} Consume Blog"
+    }
+  ]
+}

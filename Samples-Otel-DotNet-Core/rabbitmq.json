@@ -1,0 +1,24 @@
+{
+  // DI or SIMPLE
+  "RabbitMqService" : "di",  
+  "RabbitMq": {
+    "HostName": "localhost",
+    "UserName": "guest",
+    "Password": "guest",
+    "VirtualHost": "/",
+    "Port": 5672,
+  },
+  "RabbitMqExchange": {
+    "Type": "fanout",
+    "Durable": true,
+    "AutoDelete": false,
+    "DeadLetterExchange": "default.dlx.exchange",
+    "RequeueFailedMessages": true,
+    "Queues": [
+      {
+        "Name": "blog-post",
+        "RoutingKeys": [ "default.key" ]
+      }
+    ]
+  }
+}

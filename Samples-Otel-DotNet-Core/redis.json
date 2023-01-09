@@ -1,0 +1,15 @@
+{
+  "Redis": {
+    "Password": "eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81",
+    "ConnectionRetry": 2,
+    "ConnectionTimeout": 6000,
+    "AllowAdmin": true,
+    "Ssl": false,
+    "Hosts": [
+      {
+        "Host": "localhost",
+        "Port": "16379"
+      }
+    ]
+  }
+}

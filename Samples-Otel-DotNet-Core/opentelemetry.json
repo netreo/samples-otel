@@ -1,0 +1,20 @@
+{
+  "OpenTelemetry" : {
+    "Traces": {
+      "Endpoint": "http://localhost:4318/v1/traces",
+      "Protocol": "HttpProtobuf",
+      "ExportProcessorType" : "Batch", 
+      "BatchExportProcessorOptions": {
+        "ScheduledDelayMilliseconds": 1000
+      }
+    },
+    "Logs": {
+      "Endpoint": "http://localhost:4318/v1/logs",
+      "Protocol": "HttpProtobuf",
+      "ExportProcessorType" : "Batch",
+      "BatchExportProcessorOptions": {
+        "ScheduledDelayMilliseconds": 1000
+      }
+    }
+  }      
+}
