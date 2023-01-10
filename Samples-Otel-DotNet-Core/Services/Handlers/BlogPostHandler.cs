@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry.Trace;
+using RandomDataGenerator.FieldOptions;
+using RandomDataGenerator.Randomizers;
 using Samples.Database;
 using Samples.Model;
 using Samples.OTel;
@@ -15,6 +17,11 @@ public class BlogPostHandler
     private readonly IDbContextFactory<BloggingContext> _dbFactory;
     private readonly ILogger<BlogPostHandler> _logger;
 
+    private readonly IRandomizerNumber<int> _throwError = RandomizerFactory.GetRandomizer(new FieldOptionsInteger
+        {Min = 0, Max = 10, UseNullValues = false, ValueAsString = false});
+
+    private const int ThrowErrorValue = 8;
+
     public BlogPostHandler(IConnectionMultiplexer redis, IDbContextFactory<BloggingContext> dbFactory, ILogger<BlogPostHandler> logger)
     {
         _redis = redis;
@@ -26,13 +33,18 @@ public class BlogPostHandler
     {
         using (var activity = App.Application.StartActivity($"{nameof(BlogPostHandler)}.{nameof(HandleAsync)}"))
         {
-            _logger.LogInformation($"Handling Blog Post for {value.Blog}");
             try
             {
+                ThrowErrorRoulette(_throwError.Generate() ?? -1);
+                
+                _logger.LogInformation($"Handling Blog Post for {value.Blog}");
+                
                 // increment the redis counter for number of posts received
                 var total = await _redis.GetDatabase().StringIncrementAsync(MessageReceivedCount).ConfigureAwait(false);
                 _logger.LogInformation($"Handles {total} messages since last redis reset");
 
+                ThrowErrorRoulette(_throwError.Generate() ?? -1);
+                
                 await using var db = await _dbFactory.CreateDbContextAsync().ConfigureAwait(false);
                 var transaction = await db.Database.BeginTransactionAsync().ConfigureAwait(false);
 
@@ -53,6 +65,7 @@ public class BlogPostHandler
                 try
                 {
                     await db.SaveChangesAsync().ConfigureAwait(false);
+                    ThrowErrorRoulette(_throwError.Generate() ?? -1);
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
                 catch
@@ -66,6 +79,15 @@ public class BlogPostHandler
                 activity.RecordException(e);
                 _logger.LogError(e, "When receiving message from blog post");
             }
+        }
+    }
+
+    private static void ThrowErrorRoulette(int throwError)
+    {
+        if (throwError >= ThrowErrorValue)
+        {
+            throw new ArgumentOutOfRangeException(nameof(throwError), throwError,
+                $"Value must be >= {ThrowErrorValue}");
         }
     }
 }

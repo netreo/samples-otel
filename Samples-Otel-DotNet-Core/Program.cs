@@ -104,6 +104,10 @@ using var host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<BlogPostHandler>();
         services.AddHttpClient();
         
+        // add options
+        services.Configure<BlogPosterServiceOptions>(options =>
+            context.Configuration.GetSection(nameof(BlogPosterServiceOptions)).Bind(options));
+        
         // redis poster
         services.AddHostedService<RedisBlogPosterService>();
         services.AddHostedService<RedisConsumerService>();

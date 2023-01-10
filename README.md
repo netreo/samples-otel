@@ -2,12 +2,18 @@
 
 Sample applications for Open Telemetry examples
 
-## Prerequisites
+
+## [Sample-OTel-DotNet-Core](./samples-otel-dotnet-core/)
+
+DotNet Core sample application that generates log, cache, message (queue), db and http traffic.
+Uses [Bacon Ipsum Api]("https://baconipsum.com/"), Redis, RabbitMq and Postgres db as its external resources.
+
+### Prerequisites
 
 * Docker Desktop
 * .NET 7
 
-## To Run
+### To Run
 
 ```shell
 ~ > cd docker

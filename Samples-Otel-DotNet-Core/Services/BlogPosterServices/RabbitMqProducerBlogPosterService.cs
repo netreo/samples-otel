@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client.Core.DependencyInjection.Services.Interfaces;
 using Samples.Model;
@@ -13,7 +14,8 @@ public class RabbitMqProducerBlogPosterService : RandomBlogPosterService
     private readonly IProducingService _rabbitMq;
 
     public RabbitMqProducerBlogPosterService(IProducingService rabbitMq, IHttpClientFactory httpFactory,
-        ILogger<RabbitMqProducerBlogPosterService> logger) : base(httpFactory, logger)
+        IOptions<BlogPosterServiceOptions> options,
+        ILogger<RabbitMqProducerBlogPosterService> logger) : base(httpFactory, options, logger)
     {
         _rabbitMq = rabbitMq;
     }

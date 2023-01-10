@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Samples.Model;
 using Samples.OTel;
@@ -12,7 +13,8 @@ public class RedisBlogPosterService : RandomBlogPosterService
     private readonly IConnectionMultiplexer _redis;
 
     public RedisBlogPosterService(IConnectionMultiplexer redis, IHttpClientFactory httpFactory,
-        ILogger<RedisBlogPosterService> logger) : base(httpFactory, logger)
+        IOptions<BlogPosterServiceOptions> options,
+        ILogger<RedisBlogPosterService> logger) : base(httpFactory, options, logger)
     {
         _redis = redis;
     }

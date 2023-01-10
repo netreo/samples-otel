@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Samples.Model;
 using Samples.OTel;
 
@@ -10,7 +11,8 @@ public class RabbitMqBlogPosterService : RandomBlogPosterService
     private readonly RabbitMqService _rabbitMq;
 
     public RabbitMqBlogPosterService(RabbitMqService rabbitMq, IHttpClientFactory httpFactory,
-        ILogger<RabbitMqBlogPosterService> logger) : base(httpFactory, logger)
+        IOptions<BlogPosterServiceOptions> options,
+        ILogger<RabbitMqBlogPosterService> logger) : base(httpFactory, options, logger)
     {
         _rabbitMq = rabbitMq;
     }
