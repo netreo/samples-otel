@@ -3,7 +3,8 @@
     "Traces": {
       "Endpoint": "http://localhost:4318/v1/traces",
       "Protocol": "HttpProtobuf",
-      "ExportProcessorType" : "Batch", 
+      "ExportProcessorType" : "Batch",
+      "TimeoutMilliseconds" : 1000,
       "BatchExportProcessorOptions": {
         "ScheduledDelayMilliseconds": 1000
       }
@@ -12,6 +13,7 @@
       "Endpoint": "http://localhost:4318/v1/logs",
       "Protocol": "HttpProtobuf",
       "ExportProcessorType" : "Batch",
+      "TimeoutMilliseconds" : 1000,
       "BatchExportProcessorOptions": {
         "ScheduledDelayMilliseconds": 1000
       }

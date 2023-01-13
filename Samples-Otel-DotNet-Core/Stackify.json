@@ -1,6 +1,6 @@
 {
   "AppName": "Retrace Samples.Otel.NETCORE",
-  "DisableTracing": false,
+  "DisableTracing": true,
   "EnableDebug": true,
   "Instrumentation": [
     {
