@@ -1,0 +1,18 @@
+{
+    "name": "netreo/samples-otel-php-official",
+    "authors": [
+        {
+            "name": "Michael Mantos",
+            "email": "mmantos@netreo.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "open-telemetry/opentelemetry": "dev-main",
+        "guzzlehttp/guzzle": "*",
+        "php-http/guzzle7-adapter": "*",
+        "slim/slim": "~4",
+        "php-di/php-di": "^6.3",
+        "php-di/slim-bridge": "^3.2"
+    }
+}

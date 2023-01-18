@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+ # Jaeger
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "14268"
+      - "14250"
+
+  rabbitmq:
+    image: masstransit/rabbitmq:latest
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+  
+  postgresql:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '16379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+
+ # Collector
+  collector-gateway:
+    image: otel/opentelemetry-collector-contrib:latest
+    volumes:
+      - ./collector-gateway.yaml:/etc/collector-gateway.yaml
+    command: [ "--config=/etc/collector-gateway.yaml" ]
+    ports:
+      - "1888:1888"   # pprof extension
+      - "13133:13133" # health_check extension
+      - "4317:4317"        # OTLP gRPC receiver
+      - "4318:4318"        # OTLP HTTP receiver
+      #- "55670:55679" # zpages extension
+    depends_on:
+      - jaeger-all-in-one
+volumes:
+  cache:
+    driver: local
+  db:
+    driver: local
