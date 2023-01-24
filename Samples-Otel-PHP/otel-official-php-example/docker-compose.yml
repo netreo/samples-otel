@@ -4,7 +4,7 @@ x-otel-common:
   OTEL_TRACES_SAMPLER: parentbased_always_on
   OTEL_TRACES_EXPORTER: otlp
   OTEL_EXPORTER_OTLP_TRACES_PROTOCOL: grpc
-  OTEL_EXPORTER_OTLP_ENDPOINT: http://collector:4317
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:4317
   OTEL_PHP_TRACES_PROCESSOR: simple
 
 version: '3.7'
@@ -39,15 +39,3 @@ services:
     environment:
       <<: *otel-common
       OTEL_SERVICE_NAME: service-three
-
-  collector:
-    image: otel/opentelemetry-collector-contrib:0.39.0
-    volumes:
-      - './collector:/etc/otel'
-    ports:
-      - '4317:4317'
-
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16686:16686"

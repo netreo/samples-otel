@@ -5,19 +5,21 @@ All trace data is exported via grpc to an [OpenTelemetry Collector](https://open
 
 The example is presented as a [slim framework](https://www.slimframework.com/) single-file application for simplicity, and uses Guzzle as an HTTP client. The same application source is used for all services.
 
+## Running the OTel Collector
+
+```bash
+$ docker-compose -f ../docker/docker-compose.yaml up -d
+```
+
 ## Running the example
+
 ```bash
 $ docker-compose run service-one composer install
-$ docker-compose up
-# in a separate terminal
+$ docker-compose up -d
 $ curl localhost:8000/users/otel
 ```
-- Access Jaeger UI - http://localhost:16686
 
-## Screenshots
-### Jaeger
-![Jaeger](screenshots/distributed-trace-jaeger.png?raw=true "Jaeger distributed trace")
+## Accessing the Jaeger UI for the Logs
 
-## Notes
-* A guzzle middleware is responsible for wrapping each outgoing HTTP request in a span with [http-based attributes](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/semantic_conventions/http.md), and injecting `traceparent` (and optionally `tracestate`) headers.
-* A slim middleware is responsible for starting the root span, using the route pattern for the span name due to its low cardinality (see https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/api.md#span). This is also where incoming trace headers are managed.
+1. Open browser
+2. Access Jaeger UI - http://localhost:16686
