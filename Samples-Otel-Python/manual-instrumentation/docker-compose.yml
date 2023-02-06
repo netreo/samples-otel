@@ -1,0 +1,30 @@
+x-otel-common:
+  &otel-common
+  OTEL_LOG_LEVEL: warning # The library does not respect this environment variable as of this writing
+  OTEL_TRACES_SAMPLER: parentbased_always_on
+  OTEL_TRACES_EXPORTER: otlp
+  OTEL_EXPORTER_OTLP_TRACES_PROTOCOL: grpc
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://host.docker.internal:43170
+  OTEL_PHP_TRACES_PROCESSOR: simple
+
+version: '3.7'
+services:
+  service-client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.client
+    environment:
+      <<: *otel-common
+      OTEL_SERVICE_NAME: service-client-manual
+      OTEL_RESOURCE_ATTRIBUTES: 'service.version=0.1'
+
+  service-server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.server
+    ports:
+      - 8081:8081
+    environment:
+      <<: *otel-common
+      OTEL_SERVICE_NAME: service-server-manual
+      OTEL_RESOURCE_ATTRIBUTES: 'service.version=0.2'
