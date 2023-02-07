@@ -23,10 +23,18 @@ public class RedisBlogPosterService : RandomBlogPosterService
     {
         using (var activity = App.Redis.StartActivity($"PUBLISH {BlogPost.QueueName}", ActivityKind.Producer))
         {
+            var v = new RedisBlogPost
+            {
+                Blog = value.Blog,
+                Content = value.Content,
+                SpanId = activity?.SpanId.ToHexString(),
+                Title = value.Title,
+                TraceId = activity?.TraceId.ToHexString(),
+            };
             activity?.AddTags(_redis);
             var db = _redis.GetDatabase();
             activity?.AddTags(db, BlogPost.QueueName);
-            var redisValue = JsonConvert.SerializeObject(value).ToRedisValue();
+            var redisValue = JsonConvert.SerializeObject(v).ToRedisValue();
             activity?.AddTag(PropertyNames.DbStatement,
                 $"PUBLISH {BlogPost.QueueName} {redisValue.ToString(100)}");
             db.Publish(BlogPost.QueueName, redisValue);

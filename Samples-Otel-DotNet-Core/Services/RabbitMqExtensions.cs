@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -12,6 +13,13 @@ public static class RabbitMqExtensions
         var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value));
         properties ??= model.CreateBasicProperties();
         properties.ContentType = "text/json";
+        var activity = Activity.Current;
+        if (activity != null)
+        {
+            properties.Headers.Add("traceid", activity.TraceId.ToHexString());
+            properties.Headers.Add("spanid", activity.SpanId.ToHexString());
+        }
+
         model.BasicPublish(exchange, routingKey, properties, bytes);
     }
 }

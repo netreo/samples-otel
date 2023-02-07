@@ -27,6 +27,11 @@ public class RabbitMqBlogPosterService : RandomBlogPosterService
             activity?.AddTag(PropertyNames.MessagingDestinationName, BlogPost.QueueName);
             activity?.AddTags(_rabbitMq.Connection);
             var properties = _rabbitMq.Model.CreateBasicProperties();
+            if (activity != null)
+            {
+                properties.Headers.Add("traceid", activity.TraceId.ToHexString());
+                properties.Headers.Add("spanid", activity.SpanId.ToHexString());
+            }
             properties.CorrelationId = Activity.Current?.TraceId.ToString();
             activity.AddTags(properties);
             _rabbitMq.Model.Publish(value, BlogPost.QueueName, properties: properties);

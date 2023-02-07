@@ -32,24 +32,33 @@ public class RedisConsumerService : IHostedService
 
     private async void Handler(RedisChannel channel, RedisValue value)
     {
-        using (App.Application.StartActivity("Handle Redis Message"))
+        var message = GetValue(value);
+        if (message == null) return;
+        
+        var links = new List<ActivityLink>();
+        if (!string.IsNullOrWhiteSpace(message.TraceId) &&
+            !string.IsNullOrWhiteSpace(message.SpanId))
         {
-            var message = GetValue(channel, value);
-            if (message != null)
-                await _handler.HandleAsync(message).ConfigureAwait(false);
+            var ctx = new ActivityContext(ActivityTraceId.CreateFromString(message.TraceId),
+                ActivitySpanId.CreateFromString(message.SpanId), ActivityTraceFlags.Recorded, isRemote: true);
+            links.Add(new ActivityLink(ctx));
         }
-    }
-
-    private BlogPost? GetValue(RedisChannel channel, RedisValue value)
-    {
-        using (var redisActivity = App.Redis.StartActivity($"MESSAGE {channel}", ActivityKind.Consumer))
+        using (var redisActivity = App.Redis.StartActivity(ActivityKind.Consumer, name: $"MESSAGE {channel}", links:links))
         {
             redisActivity?.AddTags(_subscriber, channel);
             redisActivity?.AddTag(PropertyNames.DbStatement, $"MESSAGE {channel} {value.ToString(100)}");
-            
-            if (!value.HasValue || value.IsInteger || value.IsNullOrEmpty) return null;
-            return JsonConvert.DeserializeObject<BlogPost>(value)!;
+            using (App.Application.StartActivity("Handle Redis Message"))
+            {
+                if (message != null)
+                    await _handler.HandleAsync(message).ConfigureAwait(false);
+            }
         }
+    }
+
+    private RedisBlogPost? GetValue(RedisValue value)
+    {
+        if (!value.HasValue || value.IsInteger || value.IsNullOrEmpty) return null;
+        return JsonConvert.DeserializeObject<RedisBlogPost>(value)!;
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

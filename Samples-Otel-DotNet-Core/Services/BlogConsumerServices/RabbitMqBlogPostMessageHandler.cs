@@ -23,7 +23,18 @@ public class RabbitMqBlogPostMessageHandler : IAsyncMessageHandler
     public Task Handle(MessageHandlingContext context, string matchingRoute) => Handler(context, matchingRoute);
     private async Task Handler(MessageHandlingContext context, string matchingRoute)
     {
-        using (App.Application.StartActivity("Handle RabbitMq DI Message"))
+
+
+        var links = new List<ActivityLink>();
+        if (context.Message.BasicProperties.Headers.TryGetValue("traceid", out var traceid) &&
+            context.Message.BasicProperties.Headers.TryGetValue("spanid", out var spanid))
+        {
+            var ctx = new ActivityContext(ActivityTraceId.CreateFromString(traceid!.ToString()),
+                ActivitySpanId.CreateFromString(spanid.ToString()), ActivityTraceFlags.Recorded, isRemote: true);
+            links.Add(new ActivityLink(ctx));
+        }
+
+        using (App.Application.StartActivity(ActivityKind.Internal, name: "Handle RabbitMq DI Message", links: links))
         {
             _logger.LogInformation("RabbitMq received message on {matchingRoute} from {exchange}", matchingRoute,
                 context.Message.Exchange);

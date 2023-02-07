@@ -33,6 +33,11 @@ public class RabbitMqProducerBlogPosterService : RandomBlogPosterService
             activity?.AddTags(_rabbitMq.Connection);
             var v = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value));
             var properties = _rabbitMq.Channel?.CreateBasicProperties()!;
+            if (activity != null)
+            {
+                properties.Headers.Add("traceid", activity.TraceId.ToHexString());
+                properties.Headers.Add("spanid", activity.SpanId.ToHexString());
+            }
             properties.ContentType = "application/json";
             properties.CorrelationId = Activity.Current?.TraceId.ToString();
             activity.AddTags(properties);

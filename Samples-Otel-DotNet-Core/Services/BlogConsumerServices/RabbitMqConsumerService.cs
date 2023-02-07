@@ -39,7 +39,16 @@ public class RabbitMqConsumerService : IHostedService
 
     private async void Handler(object? sender, BasicDeliverEventArgs @event)
     {
-        using (App.Application.StartActivity("Handle RabbitMq Message"))
+        var links = new List<ActivityLink>();
+        if (@event.BasicProperties.Headers.TryGetValue("traceid", out var traceid) &&
+            @event.BasicProperties.Headers.TryGetValue("spanid", out var spanid))
+        {
+            var ctx = new ActivityContext(ActivityTraceId.CreateFromString(traceid!.ToString()),
+                ActivitySpanId.CreateFromString(spanid.ToString()), ActivityTraceFlags.Recorded, isRemote: true);
+            links.Add(new ActivityLink(ctx));
+        }
+
+        using (App.Application.StartActivity(ActivityKind.Internal, name: "Handle RabbitMq Message", links: links))
         {
             _logger.LogInformation(
                 $"Received message from {@event.Exchange} on {@event.RoutingKey} {JsonConvert.SerializeObject(@event.BasicProperties)}");
