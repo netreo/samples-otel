@@ -14,3 +14,8 @@ Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated
 ### PYTHON
 * [Auto Instrumentation](./samples-otel-python/auto-instrumentation/readme.md)
 * [Manual Instrumentation](./samples-otel-python/manual-instrumentation/readme.md)
+
+## Docker 
+
+* [docker-compose](./docker/docker-compose.yaml)
+* [collector](./docker/collector-gateway.yaml)
