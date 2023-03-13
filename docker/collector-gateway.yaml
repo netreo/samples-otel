@@ -7,16 +7,35 @@ receivers:
         endpoint: 0.0.0.0:4317
 
 processors:
+  groupbytrace:
+    wait_duration: 1s
+    num_traces: 5000
+    num_workers: 4
+    
   batch:
+    send_batch_size: 1000
+    send_batch_max_size: 2000
     timeout: 1s
 
-  filter/logs:
+  filter/prefix:
     spans:
       exclude:
         match_type: strict
         services:
           - Prefix
           - Prefix-App
+
+  filter/logs-prefix:
+    logs:
+      exclude:
+        match_type: strict
+        resource_attributes:
+          - Key: service
+            Value: Prefix
+          - Key: service
+            Value: Prefix-App
+  
+  filter/logs:
     logs:
       include:
         severity_number:
@@ -35,19 +54,22 @@ exporters:
 
   # points to Netreo.OpenTelemetry.Http test application  
   otlphttp/prefix:
-    endpoint: https://host.docker.internal:48001
+    endpoint: http://host.docker.internal:48001
     tls:
       insecure_skip_verify: true
+      
   otlp/prefix:
     endpoint: host.docker.internal:7134
     tls:
       insecure: true
       insecure_skip_verify: true
+      
   otlp/netreo:
     endpoint: host.docker.internal:7135
     tls:
       insecure: true
       insecure_skip_verify: true
+      
   otlphttp/testharnes:
     endpoint: https://host.docker.internal:7295
     tls:
@@ -65,9 +87,9 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [batch, filter/logs]
-      exporters: [logging, otlp/prefix, jaeger, otlphttp/testharnes]      
+      processors: [batch]
+      exporters: [logging, otlp/prefix, jaeger]      
     logs:
       receivers: [otlp]
-      processors: [batch,  filter/logs]
-      exporters: [logging, otlp/prefix]
+      processors: [batch,  filter/logs, filter/logs-prefix]
+      exporters: [logging, otlphttp/prefix]

@@ -2,6 +2,8 @@
 
 Sample applications for Open Telemetry examples
 
+Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated.
+
 
 ## [Sample-OTel-DotNet-Core](./samples-otel-dotnet-core/)
 
@@ -34,6 +36,13 @@ PHP Sample application that uses slim framework (for distributed tracing capabil
 * PHP Runtime (for samples-otel-php/basic)
 
 ### To Run (PHP)
+
+```shell
+~ > cd docker
+~/docker > docker-compose run service-one composer install
+~/docker > docker-compose up -d
+~/docker > curl localhost:8000/users/otel 
+```
 
 * `README.md` is located in the root directory for each sample application
   * `samples-otel-php/basic/README.md` for basic OTel application
