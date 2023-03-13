@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples-Otel-DotNet-Core", "Samples-Otel-DotNet-Core/Samples-Otel-DotNet-Core.csproj", "{82211AAB-734D-480D-B064-CA0A128F83CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples-Otel-DotNet-Core", "src/Samples-Otel-DotNet-Core/Samples-Otel-DotNet-Core.csproj", "{82211AAB-734D-480D-B064-CA0A128F83CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
