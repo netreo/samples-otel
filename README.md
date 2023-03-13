@@ -47,3 +47,9 @@ PHP Sample application that uses slim framework (for distributed tracing capabil
 * `README.md` is located in the root directory for each sample application
   * `samples-otel-php/basic/README.md` for basic OTel application
   * `samples-otel-php/otel-official-php-example/README.md` for simple microservices setup for PHP
+
+### To Run (Python)
+
+* `README.md` is located in the root directory for each sample application
+  * `samples-otel-python/manual-instrumentation/README.md` for manual instrumentation
+  * `samples-otel-python/auto-instrumentation/README.md` for auto instrumentation
