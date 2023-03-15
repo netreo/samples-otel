@@ -9,7 +9,7 @@ x-otel-common:
 
 version: '3.8'
 services:
-  
+
   # services Samples-Otel-PHP
   service-one:
     image: ghcr.io/open-telemetry/opentelemetry-php/opentelemetry-php-base:8.1
@@ -22,7 +22,7 @@ services:
       <<: *otel-common
       OTEL_SERVICE_NAME: service-one
       OTEL_RESOURCE_ATTRIBUTES: 'service.version=0.1'
-      
+
   service-two:
     image: ghcr.io/open-telemetry/opentelemetry-php/opentelemetry-php-base:8.1
     command: [ 'php', '-S', '0.0.0.0:8000' ]
@@ -32,7 +32,7 @@ services:
       <<: *otel-common
       OTEL_SERVICE_NAME: service-two
       OTEL_RESOURCE_ATTRIBUTES: 'service.version=0.2'
-    
+
   service-three:
     image: ghcr.io/open-telemetry/opentelemetry-php/opentelemetry-php-base:8.1
     command: [ 'php', '-S', '0.0.0.0:8000' ]
@@ -41,7 +41,7 @@ services:
     environment:
       <<: *otel-common
       OTEL_SERVICE_NAME: service-three
-  
+
  # Jaeger (Otel Trace Data Browser)
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
@@ -49,7 +49,7 @@ services:
       - "16686:16686"
       - "14268"
       - "14250"
-  
+
   # services Samples-Otel-DotNet-Core
   rabbitmq:
     image: masstransit/rabbitmq:latest
@@ -57,7 +57,7 @@ services:
     ports:
         - 5672:5672
         - 15672:15672
-  
+
   postgresql:
     image: postgres:latest
     restart: always
@@ -66,7 +66,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
-    volumes: 
+    volumes:
       - db:/var/lib/postgresql/data
 
   cache:
@@ -75,12 +75,12 @@ services:
     ports:
       - '16379:6379'
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    volumes: 
+    volumes:
       - cache:/data
 
  # Collector
   collector-gateway:
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector-contrib:0.70.0
     volumes:
       - ./collector-gateway.yaml:/etc/collector-gateway.yaml
     command: [ "--config=/etc/collector-gateway.yaml" ]
