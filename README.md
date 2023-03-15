@@ -22,6 +22,10 @@ Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated
 
 * [Srping Petclinic](./samples-otel-java/spring-petclinic/readme.md)
 
+### NodeJS
+
+* [nodejs-demoapp](./samples-otel-nodejs/nodejs-demoapp~~~~/readme.md)
+
 ## Docker
 
 * [docker-compose](./docker/docker-compose.yaml)
