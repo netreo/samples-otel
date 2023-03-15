@@ -1,0 +1,78 @@
+body {
+  padding: 0px;
+}
+.container {
+  padding-top: 1rem;
+}
+.navbar, .navbar-brand  {
+  font-size: 1.3em;
+}
+.navbar-brand:hover  {
+  color: #3498DB !important;
+}
+
+.footnote {
+  font-size: 90%;
+  float: right;
+  top: -30px;
+  padding-right:20px;
+  color: #aaa;
+  padding-top: 2rem;
+}
+
+.index-head {
+  margin-top:-20px; 
+  border-radius:6px; 
+  padding:15px
+}
+
+.weather-info {
+  padding-left:30px; 
+  font-size:1.8em
+}
+.todo td {
+  font-size: 200%;
+}
+.todo input[type=checkbox] {
+  transform: scale(2.5);
+}
+.todo-done {
+  text-decoration: line-through;
+  color: #999999;
+}
+.todo-check {
+  cursor: pointer;
+}
+.todo-title:focus {
+  background-color: #eeeeee;
+  color: #333333;
+  padding: 5px;
+  border-radius: 8px;
+  border: 3px solid #0793f0;
+  outline: 0px solid transparent;
+  box-shadow: 0 0 15px #0793f0;
+}
+.todo-button {
+  font-size: 150%;
+}
+.todo-panel-title {
+  margin-top: 10px;
+}
+.envvars {
+  word-break: break-all;
+  color:#45da59;
+}
+.envtable {
+  max-height:500px;
+  overflow-y: scroll;
+  font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
+
+  background-color:#222222;
+}
+.code {
+  word-wrap: break-word;
+  word-break: break-all;
+  background-color: #222222;
+  color:#45da59;
+  width: 100%;
+}

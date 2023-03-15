@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel="shortcut icon" type="image/png" href="/images/node-icon.png" />
+
+  <!-- Bootstrap theme --> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css"
+    integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN" crossorigin="anonymous">
+  <!-- Fontawesome icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <%if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) { %>
+  <script type="text/javascript">
+    var appInsights = window.appInsights || function (config) {
+      function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+    }({
+      instrumentationKey: "<%=process.env.APPINSIGHTS_INSTRUMENTATIONKEY%>"
+    });
+    window.appInsights = appInsights;
+    appInsights.trackPageView();
+  </script>
+  <% } %>
+
+  <script>
+    if (!!window.MSInputMethodContext && !!document.documentMode) {
+      alert("Greetings Time Traveller!\n\nYou're still running Internet Explorer. I feel very sorry for you.\nTry using a real browser otherwise parts of this site will not work")
+    }
+  </script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">
+      <img src="/images/node-icon.png" width="37" height="40" class="d-inline-block align-top" alt="">
+      &nbsp; Node.js Demo
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/info"><i class="fas fa-info-circle"></i>&nbsp; Info</a>
+        </li>
+        &nbsp;
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/tools"><i class="fas fa-tools"></i>&nbsp; Tools</a>
+        </li>
+        &nbsp;
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/monitor"><i class="fas fa-chart-line"></i>&nbsp; Monitor</a>
+        </li>
+
+        <%if (process.env.WEATHER_API_KEY) { %>
+        &nbsp;
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/weather"><i class="fas fa-cloud"></i>&nbsp; Weather</a>
+        </li>
+        <% } %>
+
+        <%if (process.env.TODO_MONGO_CONNSTR) { %>
+        &nbsp;
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/todo"><i class="fas fa-check-square"></i>&nbsp; Todo</a>
+        </li>
+        <% } %>
+      </ul>
+      <%if (process.env.AAD_APP_ID && process.env.AAD_APP_SECRET) { %>
+      <ul class="navbar-nav ml-auto">
+        &nbsp;
+        <%if (typeof user === 'undefined') { %>
+        <li class="nav-item active">
+          <a class="btn btn-info btn-lg" href="/login"><i class="fas fa-user"></i>&nbsp; Login</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item active">
+          <a class="btn btn-success btn-lg" href="/account"><i class="fas fa-user-circle"></i>&nbsp;
+            <%= user.account.name %></a>
+        </li>
+        <% } %>
+      </ul>
+      <% } %>
+    </div>
+  </nav>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <div class="container body-content">
