@@ -28,7 +28,7 @@ Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated
 
 ### RUBY
 
-* [sample-rails-app-main](samples-otel-ruby/sample-rails-app-main/readme.md)
+* [sample-rails-app-main](samples-otel-ruby/sample-rails-app-main/README.md)
 
 ## Docker
 
