@@ -24,11 +24,11 @@ Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated
 
 ### NodeJS
 
-* [nodejs-demoapp](./samples-otel-nodejs/nodejs-demoapp/readme.md)
+* [nodejs-demoapp](samples-otel-nodejs/nodejs-demoapp/readme.md)
 
 ### RUBY
 
-* [sample-rails-app-main](samples-otel-ruby/sample-rails-app-main/README.md)
+* [sample-rails-app-main](./Samples-OTel-Ruby/sample-rails-app-main/README.md)
 
 ## Docker
 
