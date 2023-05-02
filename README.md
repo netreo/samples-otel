@@ -6,25 +6,29 @@ Use [Jaeger](http://localhost:16686/search) or Prefix to browse traces generated
 
 ### DOTNET
 
-* [Manual Instrumentation](./samples-otel-dotnet-core/readme.md)
+* [Manual Instrumentation](./Samples-Otel-DotNet-Core/README.md)
 
 ### PHP
 
-* [Basic Instrumentation](./samples-otel-php/basic/readme.md)
-* [Official Example](./samples-otel-php/otel-official-php-example/readme.md)
+* [Basic Instrumentation](./Samples-Otel-PHP/basic/README.md)
+* [Official Example](./Samples-Otel-PHP/otel-official-php-example/README.md)
 
 ### PYTHON
 
-* [Auto Instrumentation](./samples-otel-python/auto-instrumentation/readme.md)
-* [Manual Instrumentation](./samples-otel-python/manual-instrumentation/readme.md)
+* [Auto Instrumentation](./Samples-Otel-Python/auto-instrumentation/README.md)
+* [Manual Instrumentation](./Samples-Otel-Python/manual-instrumentation/README.md)
 
 ### JAVA
 
-* [Srping Petclinic](./samples-otel-java/spring-petclinic/readme.md)
+* [Srping Petclinic](./Samples-Otel-Java/spring-petclinic/README.md)
 
 ### NodeJS
 
-* [nodejs-demoapp](./samples-otel-nodejs/nodejs-demoapp~~~~/readme.md)
+* [nodejs-demoapp](./Samples-Otel-NodeJS/nodejs-demoapp/README.md)
+
+### RUBY
+
+* [sample-rails-app-main](./Samples-Otel-Ruby/sample-rails-app-main/README.md)
 
 ## Docker
 
