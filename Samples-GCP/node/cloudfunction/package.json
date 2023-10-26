@@ -1,0 +1,23 @@
+{
+    "name": "nodejs-cloud-code-samples-functions-hello-world",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "author": "Google Inc.",
+    "dependencies": {
+        "@google-cloud/functions-framework": "^3.1.0",
+        "@opentelemetry/api": "^1.6.0",
+        "@opentelemetry/api-logs": "^0.44.0",
+        "@opentelemetry/auto-instrumentations-node": "^0.39.4",
+        "@opentelemetry/core": "^1.17.1",
+        "@opentelemetry/exporter-logs-otlp-proto": "^0.44.0",
+        "@opentelemetry/instrumentation": "^0.44.0",
+        "@opentelemetry/instrumentation-http": "^0.44.0",
+        "@opentelemetry/resource-detector-gcp": "^0.29.2",
+        "@opentelemetry/resources": "^1.17.1",
+        "@opentelemetry/sdk-logs": "^0.44.0",
+        "@opentelemetry/sdk-trace-node": "^1.17.1",
+        "@opentelemetry/semantic-conventions": "^1.17.1",
+        "node-fetch": "^2.7.0"
+    }
+}
