@@ -1,0 +1,28 @@
+{
+  "name": "otel-gcp-app-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r ./tracing.js index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@opentelemetry/api": "^1.6.0",
+    "@opentelemetry/api-logs": "^0.44.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.39.4",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.44.0",
+    "@opentelemetry/exporter-logs-otlp-proto": "^0.44.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.44.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.44.0",
+    "@opentelemetry/resource-detector-gcp": "^0.29.2",
+    "@opentelemetry/resources": "^1.17.1",
+    "@opentelemetry/sdk-logs": "^0.44.0",
+    "@opentelemetry/sdk-node": "^0.44.0",
+    "@opentelemetry/sdk-trace-node": "^1.17.1",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0"
+  }
+}
